@@ -8,8 +8,7 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.3'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -38,6 +37,8 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  # Use sqlite3 as the database for Active Record  (production db is postgres on Heroku! )
+  gem 'sqlite3'
 end
 
 group :development do
@@ -47,6 +48,18 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+# To add gems for production, add the names of the gems here, then run
+# $ bundle install --without production
+# This will only install the gems listed outside of the group :production on my local system, but
+# add the production info into Gemfile.lock which will be read by Heroku to set up the production
+# environment
+group :production do
+  # Use postgres as the database for Active Record  (local testing db is is using sqlite3 ! )
+  gem 'pg'
+  gem 'rails_12factor'   # add stuff for Heroku (or other cloud) deployment (https://github.com/heroku/rails_12factor)
+
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
